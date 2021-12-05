@@ -1,0 +1,19 @@
+body {
+    padding: 2px;
+}
+
+#new-post {
+    border: solid 2px lightgrey;
+    border-radius: 3px;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    padding-left: 2vw;
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+}
+
+#post-content {
+    width: 94vw;
+    border: solid 1px lightgrey;
+    border-radius: 3px;
+}
