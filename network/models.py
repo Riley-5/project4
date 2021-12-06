@@ -3,7 +3,8 @@ from django.db import models
 
 
 class User(AbstractUser):
-    pass
+    following = models.BigIntegerField(null = True)
+    checkFollowing = models.BooleanField(null = True)
 
 
 # Posts class
