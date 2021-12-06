@@ -10,6 +10,11 @@ from .models import User
 def index(request):
     return render(request, "network/index.html")
 
+def following(request):
+    pass
+
+def profile(request):
+    pass
 
 def login_view(request):
     if request.method == "POST":
