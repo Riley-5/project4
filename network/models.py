@@ -11,5 +11,5 @@ class User(AbstractUser):
 class Post(models.Model):
     content = models.TextField()
     dateTime = models.DateTimeField(auto_now = False, auto_now_add = True)
-    like = models.BigIntegerField()
+    like = models.BigIntegerField(default = 0)
     user = models.ForeignKey(User, on_delete = models.CASCADE, related_name = "user")
