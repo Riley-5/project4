@@ -11,10 +11,13 @@ def index(request):
     return render(request, "network/index.html")
 
 def following(request):
-    pass
+    return render(request, "network/following.html")
 
-def profile(request):
-    pass
+def profile(request, userID):
+    user = User.objects.get(pk = userID)
+    return render(request, "network/profile.html", {
+        "user": user
+    })
 
 def login_view(request):
     if request.method == "POST":

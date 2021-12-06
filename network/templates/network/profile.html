@@ -1,0 +1,20 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <h1>{{ user.username }}</h1>
+    <div id="follow-unfollow">
+        Following: {{ user.following }}
+        <br>
+        Followers: {{ user.followers }}
+        {% if not user %}
+            <button id=follow-button>Follow</button>
+            <button id=unfollow-button>Unfollow</button>
+        {% endif %}
+        <hr>
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'network/profile.js' %}"></script>
+{% endblock %}
