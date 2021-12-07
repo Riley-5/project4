@@ -15,8 +15,8 @@ def index(request):
 def following(request):
     return render(request, "network/following.html")
 
-def profile(request, userID):
-    user = User.objects.get(pk = userID)
+def profile(request, username):
+    user = User.objects.get(username = username)
     return render(request, "network/profile.html", {
         "user": user
     })

@@ -24,7 +24,7 @@ function postToDiv(post) {
     indivPostsDiv.style.marginRight = '1vw';
     indivPostsDiv.style.padding = '5px';
     var indivPostsContent = `<div id="username">
-                                <a href={% url 'profile' %}>${post.user}</a>
+                                <a href='profile/${post.user}'>${post.user}</a>
                             </div> 
                             <div id="content">
                                 ${post.content}
