@@ -3,6 +3,8 @@ from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
+from django.http import JsonResponse
+from network.models import User, Post
 
 from .models import User
 
@@ -69,3 +71,10 @@ def register(request):
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "network/register.html")
+
+# API routes
+
+# Gets all the posts created by all users from the database and sends it to the front end as JSON ordered by most recent first
+def allPosts(request):
+    allPosts = Post.objects.order_by("-dateTime").all()
+    return JsonResponse([allPost.serialize() for allPost in allPosts], safe = False)
