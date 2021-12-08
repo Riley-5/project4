@@ -9,12 +9,12 @@ function loadAllPosts() {
     .then(response => response.json())
     .then(allPosts => {
         // For each post puts the post into its own div
-        allPosts.forEach(postToDiv);
+        allPosts.forEach(allPostToDiv);
     });
 }
 
 // Puts each post into its own div
-function postToDiv(post) {
+function allPostToDiv(allPost) {
     // Put posts into their own divs
     const indivPostsDiv = document.createElement('div');
     indivPostsDiv.id = '#indiv-posts';
@@ -24,17 +24,17 @@ function postToDiv(post) {
     indivPostsDiv.style.marginRight = '1vw';
     indivPostsDiv.style.padding = '5px';
     var indivPostsContent = `<div id="username">
-                                <a href='profile/${post.user}'>${post.user}</a>
+                                <a id="profile-link" href='profile/${allPost.user}'>${allPost.user}</a>
                             </div> 
                             <div id="content">
-                                ${post.content}
+                                ${allPost.content}
                             </div> 
                             <div id="date-time">
-                                ${post.timestamp}
+                                ${allPost.timestamp}
                             </div> 
                             <div id="like-button">
                                 <button class="btn btn-primary btn-sm" id="like-button">Like</button>
-                                <p id="number-likes">${post.like}</p>
+                                <p id="number-likes">${allPost.like}</p>
                             </div>`;
 
     indivPostsDiv.innerHTML = indivPostsContent;

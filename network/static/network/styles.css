@@ -17,3 +17,11 @@ body {
     border: solid 1px lightgrey;
     border-radius: 3px;
 }
+
+#profile-posts {
+    border: solid 2px lightgray;
+    border-radius: 3px;
+    margin-right: 1vw;
+    margin-left: 1vw;
+    padding: 5px;
+}

@@ -2,17 +2,36 @@
 {% load static %}
 
 {% block body %}
-    <h1>{{ user.username }}</h1>
+    <h1>{{ profile.username }}</h1>
     <div id="follow-unfollow">
-        Following: {{ user.following }}
+        Following: {{ profile.following }}
         <br>
-        Followers: {{ user.followers }}
-        {% if not user %}
-            <button id=follow-button>Follow</button>
-            <button id=unfollow-button>Unfollow</button>
+        Followers: {{ profile.followers }}
+        <br>
+        {% if profile.username != user.username %}
+            <button class="btn btn-primary btn-sm" id=follow-button>Follow</button>
+            <button class="btn btn-primary btn-sm" id=unfollow-button>Unfollow</button>
         {% endif %}
         <hr>
     </div>
+
+    {% for profilePost in profilePosts %}
+        <div id="profile-posts">
+            <div id="username">
+                <strong>{{ profilePost.user }}</strong>
+            </div> 
+            <div id="content">
+                {{ profilePost.content }}
+            </div> 
+            <div id="date-time">
+                {{ profilePost.dateTime }}
+            </div> 
+            <div id="like-button">
+                <button class="btn btn-primary btn-sm" id="like-button">Like</button>
+                <p id="number-likes">{{ profilePost.like }}</p>
+            </div>
+        </div>
+    {% endfor %}
 {% endblock %}
 
 {% block script %}

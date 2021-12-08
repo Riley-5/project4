@@ -12,13 +12,17 @@ from .models import User
 def index(request):
     return render(request, "network/index.html")
 
-def following(request):
+def following(request): # Get sorted
+    followingPosts = Post.objects.filter(user__checkFollowing = "True")
+    return HttpResponse(followingPosts)
     return render(request, "network/following.html")
 
 def profile(request, username):
-    user = User.objects.get(username = username)
+    profile = User.objects.get(username = username)
+    profilePosts = Post.objects.filter(user__username = username).order_by("dateTime")
     return render(request, "network/profile.html", {
-        "user": user
+        "profile": profile,
+        "profilePosts": profilePosts
     })
 
 def login_view(request):
