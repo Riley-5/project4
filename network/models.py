@@ -3,9 +3,7 @@ from django.db import models
 
 
 class User(AbstractUser):
-    following = models.BigIntegerField(null = True)
-    checkFollowing = models.BooleanField(null = True)
-
+    pass
 
 # Posts class
 class Post(models.Model):

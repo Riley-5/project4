@@ -10,11 +10,19 @@ from .models import User
 
 
 def index(request):
-    return render(request, "network/index.html")
+    allPosts = Post.objects.order_by("-dateTime").all()
+    return render(request, "network/index.html", {
+        "allPosts": allPosts
+    })
 
 def following(request): # Get sorted
-    followingPosts = Post.objects.filter(user__checkFollowing = "True")
-    return HttpResponse(followingPosts)
+    # Get logged in user
+    user = request.user.username
+    # Get users that the logged in user follows
+
+    # Get posts for those users
+
+
     return render(request, "network/following.html")
 
 def profile(request, username):
@@ -75,10 +83,3 @@ def register(request):
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "network/register.html")
-
-# API routes
-
-# Gets all the posts created by all users from the database and sends it to the front end as JSON ordered by most recent first
-def allPosts(request):
-    allPosts = Post.objects.order_by("-dateTime").all()
-    return JsonResponse([allPost.serialize() for allPost in allPosts], safe = False)

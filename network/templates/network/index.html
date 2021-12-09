@@ -14,10 +14,24 @@
         </div>
         <br>
     {% endif %}
-    
-    <div id="all-posts">
 
-    </div>
+    {% for post in allPosts %}
+        <div class="posts">
+            <div id="username">
+                <a id="profile-link" href="{% url 'profile' post.user %}">{{ post.user }}</a>
+            </div> 
+            <div id="content">
+                {{ post.content }}
+            </div> 
+            <div id="date-time">
+                {{ post.dateTime }}
+            </div> 
+            <div id="like-button">
+                <button class="btn btn-primary btn-sm" id="like-button">Like</button>
+                <p id="number-likes">{{ post.like }}</p>
+            </div>
+        </div>
+    {% endfor %}
 {% endblock %}
 
 {% block script %}
