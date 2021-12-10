@@ -6,8 +6,9 @@
     {% if user.is_authenticated %}
         <div id="new-post">
             <h3>New Post</h3>
-            <form id="new-post-form">
-                <textarea id="post-content"></textarea>
+            <form action="{% url 'index' %}" id="new-post-form" method="POST">
+                {% csrf_token %}
+                {{ form }}
                 <br>
                 <input class="btn btn-primary btn-sm" type="submit" value="Post">
             </form>
@@ -18,8 +19,11 @@
     {% for post in allPosts %}
         <div class="posts">
             <div id="username">
-                <a id="profile-link" href="{% url 'profile' post.user %}">{{ post.user }}</a>
+                <a id="profile-link" href="{% url 'profile' post.user %}">{{ post.user}}</a>
             </div> 
+            {% if user == post.user %}
+                <a href="{% url 'edit' post.id %}">edit</a>
+            {% endif %}
             <div id="content">
                 {{ post.content }}
             </div> 
@@ -31,9 +35,10 @@
                 <p id="number-likes">{{ post.like }}</p>
             </div>
         </div>
+        <br>
     {% endfor %}
 {% endblock %}
 
 {% block script %}
-    <script src="{% static 'network/allPosts.js' %}"></script>
+    <script src="{% static 'network/network.js' %}"></script>
 {% endblock %}

@@ -1,0 +1,14 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <div id="new-post">
+        <h3>New Post</h3>
+        <form action="{% url 'edit' editPost.id %}" id="new-post-form" method="POST">
+            {% csrf_token %}
+            {{ editForm }}
+            <br>
+            <input class="btn btn-primary btn-sm" type="submit" value="Save">
+        </form>
+    </div>
+{% endblock %}

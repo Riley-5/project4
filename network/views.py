@@ -4,25 +4,31 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.http import JsonResponse
-from network.models import User, Post
 
-from .models import User
+from .models import *
+from .forms import *
 
 
 def index(request):
+    if request.method == "POST":
+        form = CreatePostForm(request.POST)
+
+        if form.is_valid():
+            post = form.save(commit = False)
+            post.user = request.user
+            post.save()
+            return HttpResponseRedirect(reverse("index"))
+
+    else:
+        form = CreatePostForm()
+
     allPosts = Post.objects.order_by("-dateTime").all()
     return render(request, "network/index.html", {
-        "allPosts": allPosts
+        "allPosts": allPosts,
+        "form": form
     })
 
 def following(request): # Get sorted
-    # Get logged in user
-    user = request.user.username
-    # Get users that the logged in user follows
-
-    # Get posts for those users
-
-
     return render(request, "network/following.html")
 
 def profile(request, username):
@@ -31,6 +37,23 @@ def profile(request, username):
     return render(request, "network/profile.html", {
         "profile": profile,
         "profilePosts": profilePosts
+    })
+
+def edit(request, postID):
+    if request.method == "POST":
+        editForm = CreatePostForm(request.POST)
+
+        if editForm.is_valid():
+            postToEdit = Post.objects.get(pk = postID)
+            postToEdit.content = editForm.cleaned_data["content"]
+            postToEdit.save()
+            return HttpResponseRedirect(reverse("index"))
+
+    post = Post.objects.get(pk = postID)
+
+    return render(request, "network/edit.html", {
+        "editForm": CreatePostForm(initial = {"content": post.content}),
+        "editPost": post
     })
 
 def login_view(request):
