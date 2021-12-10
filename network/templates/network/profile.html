@@ -34,7 +34,27 @@
                 <p id="number-likes">{{ profilePost.like }}</p>
             </div>
         </div>
+        <br>
     {% endfor %}
+
+    <!-- Pagination -->
+    <div class="pagination">
+        <span class="step-links">
+            {% if profilePosts.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ profilePosts.previous_page_number }}">previous</a>
+            {% endif %}
+    
+            <span class="current">
+                Page {{ profilePosts.number }} of {{ profilePosts.paginator.num_pages }}.
+            </span>
+    
+            {% if profilePosts.has_next %}
+                <a href="?page={{ profilePosts.next_page_number }}">next</a>
+                <a href="?page={{ ProfilePosts.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
 {% endblock %}
 
 {% block script %}

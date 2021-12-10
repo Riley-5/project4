@@ -12,11 +12,5 @@ class Post(models.Model):
     like = models.BigIntegerField(default = 0)
     user = models.ForeignKey(User, on_delete = models.CASCADE, related_name = "user")
 
-    def serialize(self):
-        return {
-            "id": self.id,
-            "user": self.user.username,
-            "content": self.content,
-            "timestamp": self.dateTime.strftime("%b %d %Y, %I:%M %p"),
-            "like": self.like
-        }
+    def __str__(self):
+        return f"{self.user}"

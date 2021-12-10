@@ -41,9 +41,15 @@ def following(request): # Get sorted
 def profile(request, username):
     profile = User.objects.get(username = username)
     profilePosts = Post.objects.filter(user__username = username).order_by("dateTime")
+
+    # Pagination
+    postsPerPage = Paginator(profilePosts, 10)
+    page_number = request.GET.get('page')
+    page_obj = postsPerPage.get_page(page_number)
+
     return render(request, "network/profile.html", {
         "profile": profile,
-        "profilePosts": profilePosts
+        "profilePosts": page_obj
     })
 
 def edit(request, postID):
