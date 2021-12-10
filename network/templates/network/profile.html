@@ -20,6 +20,9 @@
             <div id="username">
                 <strong>{{ profilePost.user }}</strong>
             </div> 
+            {% if user.username == profile.username %}
+                <a href="{% url 'edit' profilePost.id %}">edit</a>
+            {% endif %}
             <div id="content">
                 {{ profilePost.content }}
             </div> 
