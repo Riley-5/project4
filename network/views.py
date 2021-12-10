@@ -7,9 +7,10 @@ from django.http import JsonResponse
 
 from .models import *
 from .forms import *
+from django.core.paginator import Paginator
 
 
-def index(request):
+def index(request): # Do pagination
     if request.method == "POST":
         form = CreatePostForm(request.POST)
 
@@ -23,8 +24,14 @@ def index(request):
         form = CreatePostForm()
 
     allPosts = Post.objects.order_by("-dateTime").all()
+    
+    # Pagination
+    postsPerPage = Paginator(allPosts, 10)
+    page_number = request.GET.get('page')
+    page_obj = postsPerPage.get_page(page_number)
+
     return render(request, "network/index.html", {
-        "allPosts": allPosts,
+        "allPosts": page_obj,
         "form": form
     })
 

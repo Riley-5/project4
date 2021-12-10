@@ -22,7 +22,7 @@
                 <a id="profile-link" href="{% url 'profile' post.user %}">{{ post.user}}</a>
             </div> 
             {% if user == post.user %}
-                <a href="{% url 'edit' post.id %}">edit</a>
+                <a href="{% url 'edit' post.id %}">Edit</a>
             {% endif %}
             <div id="content">
                 {{ post.content }}
@@ -37,6 +37,25 @@
         </div>
         <br>
     {% endfor %}
+
+    <!-- Pagination -->
+    <div class="pagination">
+        <span class="step-links">
+            {% if allPosts.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ allPosts.previous_page_number }}">previous</a>
+            {% endif %}
+    
+            <span class="current">
+                Page {{ allPosts.number }} of {{ allPosts.paginator.num_pages }}.
+            </span>
+    
+            {% if allPosts.has_next %}
+                <a href="?page={{ allPosts.next_page_number }}">next</a>
+                <a href="?page={{ allPosts.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
 {% endblock %}
 
 {% block script %}
