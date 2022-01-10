@@ -9,8 +9,14 @@
         Followers:
         <br>
         {% if profile.username != user.username %}
-            <button class="btn btn-primary btn-sm" id=follow-button>Follow</button>
-            <button class="btn btn-primary btn-sm" id=unfollow-button>Unfollow</button>
+            <form action="{% url 'follow' profile.username %}" method="POST">
+                {% csrf_token %}
+                {% if profile.id not in followedPeople %}
+                    <input class="btn btn-primary btn-sm" id=follow-button name="user-follow" type="submit" value="Follow"></input>
+                {% elif profile.id in followedPeople %}
+                    <input class="btn btn-primary btn-sm" id=unfollow-button name="user-unfollow" type="submit" value="Unfollow"></input>
+                {% endif %}
+            </form>
         {% endif %}
         <hr>
     </div>

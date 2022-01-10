@@ -46,9 +46,24 @@ def following(request):
         "posts": posts
     })
 
+def follow(request, userFollow):
+    if "user-follow" in request.POST:
+        # Follow user
+        userToFollow = User.objects.get(username = userFollow) 
+        newFollow = Follower(user = request.user, followingUser = userToFollow)
+        newFollow.save()
+        return HttpResponseRedirect(reverse("following"))
+    elif "user-unfollow" in request.POST:
+        # Unfollow user
+        userToUnfollow = User.objects.get(username = userFollow)
+        removeFollow = Follower.objects.filter(followingUser = userToUnfollow)
+        removeFollow.delete()
+        return HttpResponseRedirect(reverse("following"))
+
 def profile(request, username):
     profile = User.objects.get(username = username)
     profilePosts = Post.objects.filter(user__username = username).order_by("dateTime")
+    followedPeople = Follower.objects.filter(user = request.user).values_list("followingUser", flat = True)
 
     # Pagination
     postsPerPage = Paginator(profilePosts, 10)
@@ -57,7 +72,8 @@ def profile(request, username):
 
     return render(request, "network/profile.html", {
         "profile": profile,
-        "profilePosts": page_obj
+        "profilePosts": page_obj,
+        "followedPeople": followedPeople
     })
 
 def edit(request, postID):
