@@ -29,7 +29,7 @@
             <div id="date-time">
                 {{ profilePost.dateTime }}
             </div> 
-            <div id="like-button">
+            <div id="likes">
                 <button class="btn btn-primary btn-sm" id="like-button">Like</button>
                 <p id="number-likes">{{ profilePost.like }}</p>
             </div>
@@ -50,8 +50,8 @@
             </span>
     
             {% if profilePosts.has_next %}
-                <a href="?page={{ profilePosts.next_page_number }}">next</a>
-                <a href="?page={{ ProfilePosts.paginator.num_pages }}">last &raquo;</a>
+                <a href="?page={{ profilePosts.next_page_number }}">Next</a>
+                <a href="?page={{ ProfilePosts.paginator.num_pages }}">Last &raquo;</a>
             {% endif %}
         </span>
     </div>

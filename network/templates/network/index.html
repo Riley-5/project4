@@ -30,9 +30,9 @@
             <div id="date-time">
                 {{ post.dateTime }}
             </div> 
-            <div id="like-button">
-                <button class="btn btn-primary btn-sm" id="like-button">Like</button>
-                <p id="number-likes">{{ post.like }}</p>
+            <div id="likes">
+                <button class="btn btn-primary btn-sm likes-button" data-postid = "{{ post.id }}" onclick = "likePost(this)">Like</button>
+                <span id="number-likes{{ post.id }}">{{ post.like }}</span>
             </div>
         </div>
         <br>
@@ -51,8 +51,8 @@
             </span>
     
             {% if allPosts.has_next %}
-                <a href="?page={{ allPosts.next_page_number }}">next</a>
-                <a href="?page={{ allPosts.paginator.num_pages }}">last &raquo;</a>
+                <a href="?page={{ allPosts.next_page_number }}">Next</a>
+                <a href="?page={{ allPosts.paginator.num_pages }}">Last &raquo;</a>
             {% endif %}
         </span>
     </div>

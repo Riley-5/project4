@@ -8,6 +8,8 @@ from django.http import JsonResponse
 from .models import *
 from .forms import *
 from django.core.paginator import Paginator
+from django.views.decorators.csrf import csrf_exempt
+import json
 
 
 def index(request): # Do pagination
@@ -119,3 +121,17 @@ def register(request):
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "network/register.html")
+
+# API functions
+@csrf_exempt
+def likePost(request, postID):
+    post = Post.objects.get(pk = postID)
+
+    if request.method == "PUT":
+        data = json.loads(request.body)
+        if data.get("like") is not None:
+            post.like += data["like"]
+        post.save()
+        return JsonResponse(post.like, safe = False)
+        
+        
