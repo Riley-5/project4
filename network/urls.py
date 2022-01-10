@@ -14,5 +14,5 @@ urlpatterns = [
     path("edit/<int:postID>", views.edit, name="edit"),
 
     # API routes
-    path("likePost/<int:postID>", views.likePost, name="likePost"), # FIX
+    path("likePost/<int:postID>", views.likePost, name="likePost"),
 ]

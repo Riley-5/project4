@@ -10,9 +10,10 @@ from .forms import *
 from django.core.paginator import Paginator
 from django.views.decorators.csrf import csrf_exempt
 import json
+from itertools import chain
 
 
-def index(request): # Do pagination
+def index(request):
     if request.method == "POST":
         form = CreatePostForm(request.POST)
 
@@ -37,8 +38,13 @@ def index(request): # Do pagination
         "form": form
     })
 
-def following(request): # Get sorted
-    return render(request, "network/following.html")
+def following(request):
+    followedPeople = Follower.objects.filter(user = request.user).values("followingUser")
+    posts = Post.objects.filter(user__in = followedPeople)
+
+    return render(request, "network/following.html", {
+        "posts": posts
+    })
 
 def profile(request, username):
     profile = User.objects.get(username = username)

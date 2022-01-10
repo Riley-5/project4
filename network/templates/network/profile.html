@@ -4,9 +4,9 @@
 {% block body %}
     <h1>{{ profile.username }}</h1>
     <div id="follow-unfollow">
-        Following: {{ profile.following }}
+        Following:
         <br>
-        Followers: {{ profile.followers }}
+        Followers:
         <br>
         {% if profile.username != user.username %}
             <button class="btn btn-primary btn-sm" id=follow-button>Follow</button>
@@ -30,8 +30,8 @@
                 {{ profilePost.dateTime }}
             </div> 
             <div id="likes">
-                <button class="btn btn-primary btn-sm" id="like-button">Like</button>
-                <p id="number-likes">{{ profilePost.like }}</p>
+                <button class="btn btn-primary btn-sm" id="like-button" data-postid = "{{ profilePost.id }}" onclick = "likePost(this)">Like</button>
+                <p id="number-likes{{ profilePost.id }}">{{ profilePost.like }}</p>
             </div>
         </div>
         <br>
