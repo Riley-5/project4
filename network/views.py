@@ -64,6 +64,8 @@ def profile(request, username):
     profile = User.objects.get(username = username)
     profilePosts = Post.objects.filter(user__username = username).order_by("dateTime")
     followedPeople = Follower.objects.filter(user = request.user).values_list("followingUser", flat = True)
+    following = Follower.objects.filter(user = profile).values_list("followingUser", flat=True)
+    followers = Follower.objects.filter(followingUser = profile).values_list("user", flat=True)
 
     # Pagination
     postsPerPage = Paginator(profilePosts, 10)
@@ -73,7 +75,9 @@ def profile(request, username):
     return render(request, "network/profile.html", {
         "profile": profile,
         "profilePosts": page_obj,
-        "followedPeople": followedPeople
+        "followedPeople": followedPeople,
+        "following": following,
+        "followers": followers
     })
 
 def edit(request, postID):

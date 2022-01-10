@@ -4,9 +4,9 @@
 {% block body %}
     <h1>{{ profile.username }}</h1>
     <div id="follow-unfollow">
-        Following:
+        Following: {{ following.count }}
         <br>
-        Followers:
+        Followers: {{ followers.count }}
         <br>
         {% if profile.username != user.username %}
             <form action="{% url 'follow' profile.username %}" method="POST">
